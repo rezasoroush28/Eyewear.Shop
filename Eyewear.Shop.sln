@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eyewear.Shop.Domain", "Eyew
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eyewear.Shop.Application", "Eyewear.Shop.Application\Eyewear.Shop.Application.csproj", "{0571E973-9FBC-46F1-85A1-AD19FC2FF402}"
 EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{DBAAC7B6-277D-436F-AA17-8D5A2162504F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{0571E973-9FBC-46F1-85A1-AD19FC2FF402}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0571E973-9FBC-46F1-85A1-AD19FC2FF402}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0571E973-9FBC-46F1-85A1-AD19FC2FF402}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DBAAC7B6-277D-436F-AA17-8D5A2162504F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBAAC7B6-277D-436F-AA17-8D5A2162504F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBAAC7B6-277D-436F-AA17-8D5A2162504F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBAAC7B6-277D-436F-AA17-8D5A2162504F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
