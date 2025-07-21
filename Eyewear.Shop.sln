@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eyewear.Shop.API", "WebApplication1\Eyewear.Shop.API.csproj", "{ACB4D7C2-CCD8-45C4-888E-9AD97E31BA5C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eyewear.Shop.Domain", "Eyewear.Shop.Domain\Eyewear.Shop.Domain.csproj", "{A07FD105-D758-4C6C-A6E2-5C2FA9C8C307}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eyewear.Shop.infrastructure", "Eyewear.Shop.infrastructure\Eyewear.Shop.infrastructure.csproj", "{258EA9C4-666D-4D89-BFAA-A25CF7549928}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eyewear.Shop.Domain", "Eyewear.Shop.Domain\Eyewear.Shop.Domain.csproj", "{A07FD105-D758-4C6C-A6E2-5C2FA9C8C307}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eyewear.Shop.Application", "Eyewear.Shop.Application\Eyewear.Shop.Application.csproj", "{0571E973-9FBC-46F1-85A1-AD19FC2FF402}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eyewear.Shop.Application", "Eyewear.Shop.Application\Eyewear.Shop.Application.csproj", "{0571E973-9FBC-46F1-85A1-AD19FC2FF402}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{DBAAC7B6-277D-436F-AA17-8D5A2162504F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eyewear.Shop.API", "Eyewear.Shop.API\Eyewear.Shop.API.csproj", "{14587D0A-96C1-421A-ADDE-079B1A315AE2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eyewear.Shop.Infrastructure", "Eyewear.Shop.Infrastructure\Eyewear.Shop.Infrastructure.csproj", "{B13CD8D2-D0F8-4E3C-9FA0-40AE509BCD9A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,14 +19,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{ACB4D7C2-CCD8-45C4-888E-9AD97E31BA5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ACB4D7C2-CCD8-45C4-888E-9AD97E31BA5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ACB4D7C2-CCD8-45C4-888E-9AD97E31BA5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ACB4D7C2-CCD8-45C4-888E-9AD97E31BA5C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{258EA9C4-666D-4D89-BFAA-A25CF7549928}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{258EA9C4-666D-4D89-BFAA-A25CF7549928}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{258EA9C4-666D-4D89-BFAA-A25CF7549928}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{258EA9C4-666D-4D89-BFAA-A25CF7549928}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A07FD105-D758-4C6C-A6E2-5C2FA9C8C307}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A07FD105-D758-4C6C-A6E2-5C2FA9C8C307}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A07FD105-D758-4C6C-A6E2-5C2FA9C8C307}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -39,6 +31,14 @@ Global
 		{DBAAC7B6-277D-436F-AA17-8D5A2162504F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DBAAC7B6-277D-436F-AA17-8D5A2162504F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DBAAC7B6-277D-436F-AA17-8D5A2162504F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14587D0A-96C1-421A-ADDE-079B1A315AE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14587D0A-96C1-421A-ADDE-079B1A315AE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14587D0A-96C1-421A-ADDE-079B1A315AE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14587D0A-96C1-421A-ADDE-079B1A315AE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B13CD8D2-D0F8-4E3C-9FA0-40AE509BCD9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B13CD8D2-D0F8-4E3C-9FA0-40AE509BCD9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B13CD8D2-D0F8-4E3C-9FA0-40AE509BCD9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B13CD8D2-D0F8-4E3C-9FA0-40AE509BCD9A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

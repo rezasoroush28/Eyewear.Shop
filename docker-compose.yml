@@ -11,7 +11,7 @@ services:
   api:
     build:
       context: .          # use the Dockerfile we just wrote
-      dockerfile: Dockerfile
+      dockerfile: Eyewear.Shop.API/Dockerfile
     depends_on:
       - db
     environment:
