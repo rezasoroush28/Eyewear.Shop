@@ -15,4 +15,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Eyewear.Shop.Domain\Eyewear.Shop.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -15,4 +15,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Eyewear.Shop.Persistence\Eyewear.Shop.Persistence.csproj" />
+    <ProjectReference Include="..\Eyewear.Shop.Application\Eyewear.Shop.Application.csproj" />
+  </ItemGroup>
+
 </Project>
