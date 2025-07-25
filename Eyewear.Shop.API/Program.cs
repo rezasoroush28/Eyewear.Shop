@@ -1,7 +1,12 @@
 using Eyewear.Shop.Application.Interfaces.Repository;
+using Eyewear.Shop.Application.Interfaces.Services;
 using Eyewear.Shop.Persistence.Contexts;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Eyewear.Shop.Application.Interfaces.Services;
 using System;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +17,23 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<IUnitOfWork>(provider => provider.GetRequiredService<AppDbContext>());
 builder.Services.AddScoped<IOtpRepository>(provider => provider.GetRequiredService<AppDbContext>());
 builder.Services.AddScoped<IUserRepository>(provider => provider.GetRequiredService<AppDbContext>());
+builder.Services.AddSingleton<ISmsService, FakeSmsSender>();
 
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        var key = Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Secret"]);
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(key)
+        };
+    });
+
+builder.Services.AddAuthorization();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
