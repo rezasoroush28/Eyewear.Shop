@@ -1,5 +1,5 @@
 ﻿using Eyewear.Shop.API.Models.Auth;
-using Eyewear.Shop.Application.Interfaces.Auth;
+using Eyewear.Shop.Application.Interfaces.Services.Auth;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;

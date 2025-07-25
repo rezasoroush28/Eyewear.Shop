@@ -1,5 +1,6 @@
-﻿using Eyewear.Shop.Application.Interfaces.Auth;
-using Eyewear.Shop.Application.Interfaces.Repository;
+﻿using Eyewear.Shop.Application.Interfaces.Persistance.Repository;
+using Eyewear.Shop.Application.Interfaces.Services;
+using Eyewear.Shop.Application.Interfaces.Services.Auth;
 using Eyewear.Shop.Persistence.Contexts;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -20,12 +21,14 @@ namespace Eyewear.Shop.Infrastructure.Services.Auth
         private readonly IUserRepository _userRepository;
         private readonly IOtpRepository _otpRepository;
         private readonly IConfiguration _configuration;
+        private readonly ISmsService _smsService;
 
-        public AuthService(IOtpRepository otpRepository, IConfiguration configuration, IUserRepository userRepository)
+        public AuthService(IOtpRepository otpRepository, IConfiguration configuration, IUserRepository userRepository, ISmsService smsService)
         {
             _otpRepository = otpRepository;
             _configuration = configuration;
             _userRepository = userRepository;
+            _smsService = smsService;
         }
 
         public async Task CompleteProfileAsync(Guid userId, string name, string email)
@@ -56,6 +59,7 @@ namespace Eyewear.Shop.Infrastructure.Services.Auth
                 await _otpRepository.AddOtpAsync(otp);
                 await _unitOfWork.SaveChangesAsync();
 
+                await _smsService.SendAsync(phoneNumber, string.Empty); //fake sms
                 // external call
                 //await _smsSender.SendAsync(phoneNumber, $"Your OTP code is: {code}");
 

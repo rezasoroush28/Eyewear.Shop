@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Eyewear.Shop.Application.Interfaces.Auth
+namespace Eyewear.Shop.Application.Interfaces.Services.Auth
 {
     public interface IAuthService
     {

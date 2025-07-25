@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Eyewear.Shop.Application.Interfaces.Repository
+namespace Eyewear.Shop.Application.Interfaces.Persistance.Repository
 {
     public interface IUserRepository
     {
