@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
@@ -31,27 +32,30 @@ namespace Eyewear.Shop.Infrastructure.Services.Auth
             _smsService = smsService;
         }
 
-        public async Task CompleteProfileAsync(Guid userId, string name, string email)
+        public async Task<Result> CompleteProfileAsync(Guid userId, string name, string email)
         {
             var user = await _userRepository.GetUserByIdAsync(userId);
             if (user == null)
-                throw new ArgumentNullException(nameof(user));
+                return Result.Failure("user not found", 400);
 
             user.Name = name;
             user.Email = email;
 
             await _unitOfWork.SaveChangesAsync();
+            return Result.Success();
 
         }
-        public async Task RequestOtpAsync(string phoneNumber)
+        public async Task<Result> RequestOtpAsync(string phoneNumber)
         {
             var transaction = await _unitOfWork.BeginTransactionAsync();
-            var code = new Random().Next(10000, 99999).ToString();
+
+            var code = RandomNumberGenerator.GetInt32(10000, 99999).ToString();
+            int expiryMinutes = int.Parse(_configuration["Otp:ExpirationMinutes"]);
             var otp = new OtpCode
             {
                 PhoneNumber = phoneNumber,
                 Code = code,
-                Expiration = DateTime.UtcNow.AddMinutes(2)
+                Expiration = DateTime.UtcNow.AddMinutes(expiryMinutes)
             };
 
             try
@@ -59,27 +63,29 @@ namespace Eyewear.Shop.Infrastructure.Services.Auth
                 await _otpRepository.AddOtpAsync(otp);
                 await _unitOfWork.SaveChangesAsync();
 
-                await _smsService.SendAsync(phoneNumber, string.Empty); //fake sms
-                // external call
-                //await _smsSender.SendAsync(phoneNumber, $"Your OTP code is: {code}");
+                var smsResult = await _smsService.SendAsync(phoneNumber, string.Empty); //fake sms
+                if (!smsResult.IsSuccess)
+                    throw new Exception(smsResult.ErrorMessage);
 
-                //await transaction.CommitAsync(); // success
+                await transaction.CommitAsync();
+                return Result.Success();
             }
 
-            catch
+            catch(Exception ex) 
             {
                 await _unitOfWork.RollbackTransaction(transaction); // remove saved OTP
                 //add log 
+                return Result.Failure(ex.Message, 500);
             }
         }
-        public async Task<string> VerifyOtpAsync(string phoneNumber, string code)
+        public async Task<Result<string>> VerifyOtpAsync(string phoneNumber, string code)
         {
             var otp = await _otpRepository.GetUserLastOtpAsync(phoneNumber, code);
-            if (otp == null)
-                throw new Exception("Invalid or expired OTP");
+            if (otp == null || otp.Code != code || otp.Used || otp.Expiration < DateTime.UtcNow)
+                    return Result<string>.Failure("Invalid or expired OTP", 400);
 
             otp.Used = true;
-            
+
             var user = await _userRepository.GetUserByPhoneNumber(phoneNumber);
             if (user == null)
             {
@@ -93,13 +99,19 @@ namespace Eyewear.Shop.Infrastructure.Services.Auth
                 await _unitOfWork.SaveChangesAsync();
             }
 
-            return GenerateToken(user);
+
+            var token = GenerateToken(user);
+            return Result<string>.Success(token);
 
         }
         private string GenerateToken(AppUser user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.UTF8.GetBytes(_configuration["Jwt:Secret"]);
+
+            var secret = _configuration["Jwt:Secret"];
+            if (string.IsNullOrEmpty(secret))
+                throw new Exception("JWT secret is not configured.");
+            var key = Encoding.UTF8.GetBytes(secret);
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {

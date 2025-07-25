@@ -20,15 +20,20 @@ namespace Eyewear.Shop.API.Controllers
         [HttpPost("request-otp")]
         public async Task<IActionResult> RequestOtp([FromBody] RequestOtpDto requestOtpDto)
         {
-            await _authService.RequestOtpAsync(requestOtpDto.PhoneNumber);
+            var result = await _authService.RequestOtpAsync(requestOtpDto.PhoneNumber);
+            if(result.IsSuccess)
+                return BadRequest(result.ErrorMessage);
+
             return Ok();
         }
 
         [HttpPost("verify-otp")]
         public async Task<IActionResult> VerifyOtp([FromBody] VerifyOtpDto dto)
         {
-            var token = await _authService.VerifyOtpAsync(dto.PhoneNumber, dto.Code);
-            return Ok(new { token });
+            var tokenResult = await _authService.VerifyOtpAsync(dto.PhoneNumber, dto.Code);
+            if (tokenResult.IsSuccess)
+                return BadRequest(tokenResult.ErrorMessage);
+            return Ok(new { tokenResult.Data });
         }
 
         [Authorize]
@@ -39,7 +44,9 @@ namespace Eyewear.Shop.API.Controllers
             if (userId == null)
                 return Unauthorized();
 
-            await _authService.CompleteProfileAsync(Guid.Parse(userId), dto.Name, dto.Email);
+            var result = await _authService.CompleteProfileAsync(Guid.Parse(userId), dto.Name, dto.Email);
+            if (result.IsSuccess)
+                return BadRequest(result.ErrorMessage);
             return Ok("Profile updated.");
         }
     }

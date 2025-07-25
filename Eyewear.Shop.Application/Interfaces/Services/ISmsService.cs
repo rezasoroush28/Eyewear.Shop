@@ -8,6 +8,6 @@ namespace Eyewear.Shop.Application.Interfaces.Services
 {
     public interface ISmsService
     {
-        Task SendAsync(string phoneNumber, string message);
+        Task<Result> SendAsync(string phoneNumber, string message);
     }
 }
