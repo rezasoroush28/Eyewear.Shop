@@ -17,6 +17,8 @@ builder.Services.AddScoped<IOtpRepository>(provider => provider.GetRequiredServi
 builder.Services.AddScoped<IUserRepository>(provider => provider.GetRequiredService<AppDbContext>());
 builder.Services.AddSingleton<ISmsService, FakeSmsSender>();
 
+
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -37,6 +39,13 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+if (app.Environment.EnvironmentName == "Docker")
+{
+    using var scope = app.Services.CreateScope();
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    db.Database.Migrate();
+}
 
 if (app.Environment.IsDevelopment())
 {

@@ -4,12 +4,16 @@
     <ProjectVersion>2.1</ProjectVersion>
     <DockerTargetOS>Linux</DockerTargetOS>
     <DockerPublishLocally>False</DockerPublishLocally>
-    <ProjectGuid>dbaac7b6-277d-436f-aa17-8d5a2162504f</ProjectGuid>
+    <ProjectGuid>ec8aa596-647d-41f9-bf52-a9f6363edfe9</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/swagger</DockerServiceUrl>
     <DockerServiceName>eyewear.shop.api</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>
+    <None Include="docker-compose.override.yml">
+      <DependentUpon>docker-compose.yml</DependentUpon>
+    </None>
+    <None Include="docker-compose.yml" />
     <None Include=".dockerignore" />
   </ItemGroup>
 </Project>

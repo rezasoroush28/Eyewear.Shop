@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  eyewear.shop.api:
+    image: eyewearshopapi
+    build:
+      context: .
+      dockerfile: Eyewear.Shop.API/Dockerfile
+    depends_on:
+      - eyewear.db
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+      - ConnectionStrings__DefaultConnection=Server=eyewear.db,1433;Database=EyewearDb;User Id=sa;Password=RezaEyewear;TrustServerCertificate=true;
+    ports:
+      - "8080:8080"
+    networks:
+      - eyewear-network
+
+  eyewear.db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: eyewear-sql
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=RezaEyewear
+      - MSSQL_PID=Express
+    ports:
+      - "1433:1433"
+    volumes:
+      - mssql-data:/var/opt/mssql
+    networks:
+      - eyewear-network
+
+volumes:
+  mssql-data:
+
+networks:
+  eyewear-network:
