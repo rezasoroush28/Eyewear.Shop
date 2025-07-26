@@ -1,18 +1,12 @@
 ﻿using Eyewear.Shop.Application.Interfaces.Persistance.Repository;
 using Eyewear.Shop.Application.Interfaces.Services;
 using Eyewear.Shop.Application.Interfaces.Services.Auth;
-using Eyewear.Shop.Persistence.Contexts;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
-using System.Transactions;
 
 namespace Eyewear.Shop.Infrastructure.Services.Auth
 {

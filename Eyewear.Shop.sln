@@ -7,13 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eyewear.Shop.Domain", "Eyew
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eyewear.Shop.Application", "Eyewear.Shop.Application\Eyewear.Shop.Application.csproj", "{0571E973-9FBC-46F1-85A1-AD19FC2FF402}"
 EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{DBAAC7B6-277D-436F-AA17-8D5A2162504F}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eyewear.Shop.API", "Eyewear.Shop.API\Eyewear.Shop.API.csproj", "{14587D0A-96C1-421A-ADDE-079B1A315AE2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eyewear.Shop.Infrastructure", "Eyewear.Shop.Infrastructure\Eyewear.Shop.Infrastructure.csproj", "{B13CD8D2-D0F8-4E3C-9FA0-40AE509BCD9A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eyewear.Shop.Persistence", "..\Eyewear.Shop.Persistence\Eyewear.Shop.Persistence.csproj", "{784983ED-6430-4A8A-A8A5-41741C628089}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eyewear.Shop.Persist", "Eyewear.Shop.Persistence\Eyewear.Shop.Persist.csproj", "{F76656E8-8CF1-42F1-AEE6-5BA8EF19F9B1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +27,6 @@ Global
 		{0571E973-9FBC-46F1-85A1-AD19FC2FF402}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0571E973-9FBC-46F1-85A1-AD19FC2FF402}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0571E973-9FBC-46F1-85A1-AD19FC2FF402}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DBAAC7B6-277D-436F-AA17-8D5A2162504F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DBAAC7B6-277D-436F-AA17-8D5A2162504F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DBAAC7B6-277D-436F-AA17-8D5A2162504F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DBAAC7B6-277D-436F-AA17-8D5A2162504F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{14587D0A-96C1-421A-ADDE-079B1A315AE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{14587D0A-96C1-421A-ADDE-079B1A315AE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{14587D0A-96C1-421A-ADDE-079B1A315AE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -41,10 +35,10 @@ Global
 		{B13CD8D2-D0F8-4E3C-9FA0-40AE509BCD9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B13CD8D2-D0F8-4E3C-9FA0-40AE509BCD9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B13CD8D2-D0F8-4E3C-9FA0-40AE509BCD9A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{784983ED-6430-4A8A-A8A5-41741C628089}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{784983ED-6430-4A8A-A8A5-41741C628089}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{784983ED-6430-4A8A-A8A5-41741C628089}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{784983ED-6430-4A8A-A8A5-41741C628089}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F76656E8-8CF1-42F1-AEE6-5BA8EF19F9B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F76656E8-8CF1-42F1-AEE6-5BA8EF19F9B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F76656E8-8CF1-42F1-AEE6-5BA8EF19F9B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F76656E8-8CF1-42F1-AEE6-5BA8EF19F9B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

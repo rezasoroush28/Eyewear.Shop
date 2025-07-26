@@ -1,12 +1,10 @@
 using Eyewear.Shop.Application.Interfaces.Services;
-using Eyewear.Shop.Persistence.Contexts;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Eyewear.Shop.Application.Interfaces.Services;
-using System;
 using System.Text;
 using Eyewear.Shop.Application.Interfaces.Persistance.Repository;
+using Eyewear.Shop.Persistence.Contexts;
 
 var builder = WebApplication.CreateBuilder(args);
 
