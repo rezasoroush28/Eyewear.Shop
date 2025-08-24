@@ -14,6 +14,8 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
                .WithMany(c => c.Products)
                .HasForeignKey(p => p.CategoryId);
 
+        builder.Property(p => p.Description).HasMaxLength(1000);
+
         builder.HasMany(p => p.Variants)
                .WithOne(v => v.Product)
                .HasForeignKey(v => v.ProductId);

@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Eyewear.Shop.Application.Interfaces.Persistance.Repository;
 using Eyewear.Shop.Persistence.Contexts;
+using Eyewear.Shop.Application.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,8 @@ builder.Services.AddScoped<IUserRepository>(provider => provider.GetRequiredServ
 builder.Services.AddSingleton<ISmsService, FakeSmsSender>();
 
 
+builder.Services.AddMediatR(cfg =>
+    cfg.RegisterServicesFromAssembly(typeof(IApplicationMarker).Assembly));
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
