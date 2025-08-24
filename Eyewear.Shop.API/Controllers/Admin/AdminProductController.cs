@@ -1,10 +1,8 @@
-﻿using Eyewear.Shop.API.Models.Auth;
-using Eyewear.Shop.Application.Commands.Products;
-using Eyewear.Shop.Application.Interfaces.Services.Auth;
+﻿using Eyewear.Shop.Application.Commands.Products;
+using Eyewear.Shop.Application.Dtos.Products;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace Eyewear.Shop.API.Controllers
 {
@@ -13,7 +11,7 @@ namespace Eyewear.Shop.API.Controllers
     [Authorize(Roles = "Admin")]
     public class AdminProductController : ControllerBase
     {
-        ‍private readonly IMediator _mediator;
+        private readonly IMediator _mediator;
 
         public AdminProductController(IMediator mediator)
         {
@@ -23,8 +21,15 @@ namespace Eyewear.Shop.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateProductDto dto)
         {
-            var id = await _mediator.Send(new CreateProductCommand(dto.Name, dto.Description, dto.CategoryId));
-            return Ok(new { Id = id });
+            var res = await _mediator.Send(new CreateProductCommand
+            {
+                Name = dto.Name,
+                Description = dto.Description,
+                CategoryId = dto.CategoryId
+            });
+
+            if(res.IsSuccess) return Ok();
+            else return BadRequest();
         }
 
         [HttpPut("{id}")]

@@ -4,5 +4,5 @@ public interface IUnitOfWork
 {
     Task<IDbContextTransaction> BeginTransactionAsync();
     Task RollbackTransaction(IDbContextTransaction transaction);
-    Task SaveChangesAsync();
+    Task SaveChangesAsync(CancellationToken cancellationToken);
 }

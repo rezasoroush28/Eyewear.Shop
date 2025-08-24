@@ -12,9 +12,9 @@ namespace Eyewear.Shop.Persistence.Contexts;
 
 public partial class AppDbContext : IProductRepository
 {
-    public async Task AddAsync(Product product)
+    public async Task AddAsync(Product product, CancellationToken cancellationToken)
     {
-        await Products.AddAsync(product);
+        await Products.AddAsync(product, cancellationToken);
     }
 
     public async void Delete(int id)

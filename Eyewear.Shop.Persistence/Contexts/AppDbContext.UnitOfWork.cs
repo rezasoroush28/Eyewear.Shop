@@ -14,9 +14,9 @@ public partial class AppDbContext : IUnitOfWork
         await transaction.RollbackAsync();
     }
 
-    public async Task SaveChangesAsync()
+    public async Task SaveChangesAsync(CancellationToken cancellationToken)
     {
-        await base.SaveChangesAsync();
+        await base.SaveChangesAsync(cancellationToken);
     }
 }
 
