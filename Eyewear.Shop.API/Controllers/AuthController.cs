@@ -18,9 +18,9 @@ namespace Eyewear.Shop.API.Controllers
         }
 
         [HttpPost("request-otp")]
-        public async Task<IActionResult> RequestOtp([FromBody] RequestOtpDto requestOtpDto)
+        public async Task<IActionResult> RequestOtp([FromBody] RequestOtpDto requestOtpDto, CancellationToken cancellationToken)
         {
-            var result = await _authService.RequestOtpAsync(requestOtpDto.PhoneNumber);
+            var result = await _authService.RequestOtpAsync(requestOtpDto.PhoneNumber, cancellationToken);
             if(result.IsSuccess)
                 return BadRequest(result.ErrorMessage);
 
@@ -28,9 +28,9 @@ namespace Eyewear.Shop.API.Controllers
         }
 
         [HttpPost("verify-otp")]
-        public async Task<IActionResult> VerifyOtp([FromBody] VerifyOtpDto dto)
+        public async Task<IActionResult> VerifyOtp([FromBody] VerifyOtpDto dto, CancellationToken cancellationToken)
         {
-            var tokenResult = await _authService.VerifyOtpAsync(dto.PhoneNumber, dto.Code);
+            var tokenResult = await _authService.VerifyOtpAsync(dto.PhoneNumber, dto.Code, cancellationToken);
             if (tokenResult.IsSuccess)
                 return BadRequest(tokenResult.ErrorMessage);
             return Ok(new { tokenResult.Data });
@@ -38,13 +38,13 @@ namespace Eyewear.Shop.API.Controllers
 
         [Authorize]
         [HttpPost("complete-profile")]
-        public async Task<IActionResult> CompleteProfile([FromBody] CompleteProfileDto dto)
+        public async Task<IActionResult> CompleteProfile([FromBody] CompleteProfileDto dto, CancellationToken cancellationToken)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (userId == null)
                 return Unauthorized();
 
-            var result = await _authService.CompleteProfileAsync(Guid.Parse(userId), dto.Name, dto.Email);
+            var result = await _authService.CompleteProfileAsync(Guid.Parse(userId), dto.Name, dto.Email, cancellationToken);
             if (result.IsSuccess)
                 return BadRequest(result.ErrorMessage);
             return Ok("Profile updated.");

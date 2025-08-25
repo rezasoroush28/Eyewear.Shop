@@ -32,25 +32,25 @@ namespace Eyewear.Shop.API.Controllers
             else return BadRequest();
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] UpdateProductDto dto)
-        {
-            await _mediator.Send(new UpdateProductCommand(id, dto.Name, dto.Description, dto.CategoryId));
-            return NoContent();
-        }
+        //[HttpPut("{id}")]
+        //public async Task<IActionResult> Update(int id, [FromBody] UpdateProductDto dto)
+        //{
+        //    await _mediator.Send(new UpdateProductCommand(id, dto.Name, dto.Description, dto.CategoryId));
+        //    return NoContent();
+        //}
 
-        [HttpPost("{productId}/variants")]
-        public async Task<IActionResult> AddVariant(int productId, [FromBody] CreateProductVariantDto dto)
-        {
-            var id = await _mediator.Send(new CreateProductVariantCommand(productId, dto.Color, dto.Size, dto.Price));
-            return Ok(new { Id = id });
-        }
+        //[HttpPost("{productId}/variants")]
+        //public async Task<IActionResult> AddVariant(int productId, [FromBody] CreateProductVariantDto dto)
+        //{
+        //    var id = await _mediator.Send(new CreateProductVariantCommand(productId, dto.Color, dto.Size, dto.Price));
+        //    return Ok(new { Id = id });
+        //}
 
-        [HttpPut("variants/{variantId}")]
-        public async Task<IActionResult> UpdateVariant(int variantId, [FromBody] UpdateProductVariantDto dto)
-        {
-            await _mediator.Send(new UpdateProductVariantCommand(variantId, dto.Color, dto.Size, dto.Price));
-            return NoContent();
-        }
+        //[HttpPut("variants/{variantId}")]
+        //public async Task<IActionResult> UpdateVariant(int variantId, [FromBody] UpdateProductVariantDto dto)
+        //{
+        //    await _mediator.Send(new UpdateProductVariantCommand(variantId, dto.Color, dto.Size, dto.Price));
+        //    return NoContent();
+        //}
     }
 }

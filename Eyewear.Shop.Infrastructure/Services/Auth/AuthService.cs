@@ -7,6 +7,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 
 namespace Eyewear.Shop.Infrastructure.Services.Auth
 {
@@ -26,7 +27,7 @@ namespace Eyewear.Shop.Infrastructure.Services.Auth
             _smsService = smsService;
         }
 
-        public async Task<Result> CompleteProfileAsync(Guid userId, string name, string email)
+        public async Task<Result> CompleteProfileAsync(Guid userId, string name, string email, CancellationToken cancellationToken)
         {
             var user = await _userRepository.GetUserByIdAsync(userId);
             if (user == null)
@@ -35,11 +36,11 @@ namespace Eyewear.Shop.Infrastructure.Services.Auth
             user.Name = name;
             user.Email = email;
 
-            await _unitOfWork.SaveChangesAsync();
+            await _unitOfWork.SaveChangesAsync(cancellationToken);
             return Result.Success();
 
         }
-        public async Task<Result> RequestOtpAsync(string phoneNumber)
+        public async Task<Result> RequestOtpAsync(string phoneNumber, CancellationToken cancellationToken)
         {
             var transaction = await _unitOfWork.BeginTransactionAsync();
 
@@ -55,7 +56,7 @@ namespace Eyewear.Shop.Infrastructure.Services.Auth
             try
             {
                 await _otpRepository.AddOtpAsync(otp);
-                await _unitOfWork.SaveChangesAsync();
+                await _unitOfWork.SaveChangesAsync(cancellationToken);
 
                 var smsResult = await _smsService.SendAsync(phoneNumber, string.Empty); //fake sms
                 if (!smsResult.IsSuccess)
@@ -72,7 +73,7 @@ namespace Eyewear.Shop.Infrastructure.Services.Auth
                 return Result.Failure(ex.Message, 500);
             }
         }
-        public async Task<Result<string>> VerifyOtpAsync(string phoneNumber, string code)
+        public async Task<Result<string>> VerifyOtpAsync(string phoneNumber, string code, CancellationToken cancellationToken)
         {
             var otp = await _otpRepository.GetUserLastOtpAsync(phoneNumber, code);
             if (otp == null || otp.Code != code || otp.Used || otp.Expiration < DateTime.UtcNow)
@@ -90,7 +91,7 @@ namespace Eyewear.Shop.Infrastructure.Services.Auth
                 };
 
                 await _userRepository.AddUserAsync(user);
-                await _unitOfWork.SaveChangesAsync();
+                await _unitOfWork.SaveChangesAsync(cancellationToken);
             }
 
 
