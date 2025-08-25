@@ -13,6 +13,6 @@ namespace Eyewear.Shop.Application.Interfaces.Persistance.Repository
         Task Update(Product product);
         Task<Product> GetByIdAsync(int id, CancellationToken cancellationToken);
         Task<List<Product>> GetAllAsync();
-        void Delete(int id);
+        Task DeleteAsync(int id);
     }
 }

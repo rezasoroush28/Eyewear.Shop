@@ -46,6 +46,17 @@ namespace Eyewear.Shop.API.Controllers
             return NoContent();
         }
 
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Delete([FromBody] DeleteProductDto dto)
+        {
+            await _mediator.Send(new DeleteProductCommand
+            {
+                ProductId = dto.ProductId,
+            });
+
+            return NoContent();
+        }
+
         //[HttpPost("{productId}/variants")]
         //public async Task<IActionResult> AddVariant(int productId, [FromBody] CreateProductVariantDto dto)
         //{

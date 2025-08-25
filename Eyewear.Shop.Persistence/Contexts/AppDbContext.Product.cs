@@ -17,13 +17,12 @@ public partial class AppDbContext : IProductRepository
         await Products.AddAsync(product, cancellationToken);
     }
 
-    public async void Delete(int id)
+    public async Task DeleteAsync(int id)
     {
         var product = await Products.Where(p => p.Id == id).FirstOrDefaultAsync();
         product.IsDeleted = true;
 
     }
-
     public async Task<List<Product>> GetAllAsync()
     {
         return await Products.AsNoTracking().ToListAsync();
