@@ -32,12 +32,19 @@ namespace Eyewear.Shop.API.Controllers
             else return BadRequest();
         }
 
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> Update(int id, [FromBody] UpdateProductDto dto)
-        //{
-        //    await _mediator.Send(new UpdateProductCommand(id, dto.Name, dto.Description, dto.CategoryId));
-        //    return NoContent();
-        //}
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update([FromBody] UpdateProductDto dto)
+        {
+            await _mediator.Send(new UpdateProductCommand
+            {
+                ProductId = dto.ProductId,
+                Name = dto.Name,
+                Description = dto.Description,
+                CategoryId = dto.CategoryId
+            });
+
+            return NoContent();
+        }
 
         //[HttpPost("{productId}/variants")]
         //public async Task<IActionResult> AddVariant(int productId, [FromBody] CreateProductVariantDto dto)

@@ -10,7 +10,8 @@ namespace Eyewear.Shop.Application.Interfaces.Persistance.Repository
     public interface IProductRepository
     {
         Task AddAsync(Product product, CancellationToken cancellationToken);
-        Task<Product> GetByIdAsync(int id);
+        Task Update(Product product);
+        Task<Product> GetByIdAsync(int id, CancellationToken cancellationToken);
         Task<List<Product>> GetAllAsync();
         void Delete(int id);
     }
