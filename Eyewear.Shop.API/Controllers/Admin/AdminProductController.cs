@@ -25,7 +25,13 @@ namespace Eyewear.Shop.API.Controllers
             {
                 Name = dto.Name,
                 Description = dto.Description,
-                CategoryId = dto.CategoryId
+                CategoryId = dto.CategoryId,
+                BasePrice = dto.BasePrice,
+                DiscountAmount = dto.DiscountAmount,
+                DiscountTyp = dto.DiscountTyp,
+                ImageList = dto.ImageList,
+                VarientList = dto.VarientList,
+                AttributeList = dto.AttributeList,
             });
 
             if(res.IsSuccess) return Ok();
@@ -40,7 +46,10 @@ namespace Eyewear.Shop.API.Controllers
                 ProductId = dto.ProductId,
                 Name = dto.Name,
                 Description = dto.Description,
-                CategoryId = dto.CategoryId
+                CategoryId = dto.CategoryId,
+                BasePrice= dto.BasePrice,
+                DiscountAmount = dto.DiscountAmount,
+                DiscountTyp = dto.DiscountTyp,
             });
 
             return NoContent();

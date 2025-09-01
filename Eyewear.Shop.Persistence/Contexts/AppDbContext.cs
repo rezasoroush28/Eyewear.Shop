@@ -12,6 +12,7 @@ public partial class AppDbContext : DbContext
     public DbSet<Category> Categories => Set<Category>();
     public DbSet<AppUser> Users => Set<AppUser>();
     public DbSet<OtpCode> OtpCodes => Set<OtpCode>();   
+    //public DbSet<Discount> Discounts => Set<Discount>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

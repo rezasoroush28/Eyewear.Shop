@@ -1,4 +1,5 @@
-﻿using Eyewear.Shop.Application.Interfaces.Persistance.Repository;
+﻿using Eyewear.Shop.Application.Dtos.Products;
+using Eyewear.Shop.Application.Interfaces.Persistance.Repository;
 using Eyewear.Shop.Domain.Entities;
 using MediatR;
 using System;
@@ -11,9 +12,16 @@ namespace Eyewear.Shop.Application.Commands.Products
 {
     public class CreateProductCommand : IRequest<Result<CreateProductResponse>>
     {
-        public string Name { get; set; } = null!;
-        public string Description { get; set; } = null!;
+        public string Name { get; set; }
+        public string Description { get; set; }
         public int CategoryId { get; set; }
+        public float? DiscountAmount { get; set; }
+        public DiscountType? DiscountTyp { get; set; }
+        public decimal BasePrice { get; set; }
+        public List<ProductAttributeDto> AttributeList { get; set; } = new List<ProductAttributeDto>();
+        public List<ProductImageDto> ImageList { get; set; } = new List<ProductImageDto>();
+        public List<ProductVariantDto> VarientList { get; set; } = new List<ProductVariantDto>();
+
     }
 
     public class CreateProductResponse 
@@ -34,11 +42,40 @@ namespace Eyewear.Shop.Application.Commands.Products
 
         public async Task<Result<CreateProductResponse>> Handle(CreateProductCommand request, CancellationToken cancellationToken)
         {
+            var attributes = (request.AttributeList ?? new()).Select(a => new ProductAttribute
+            {
+                Key = a.Key,
+                Value = a.Value
+            }).ToList();
+
+            var images = (request.ImageList ?? new()).Select(i => new ProductImage
+            {
+                ImageUrl = i.ImageUrl
+            }).ToList();
+
+            var variants = (request.VarientList ?? new()).Select(v => new ProductVariant
+            {
+                // No ProductId here; EF will set it via navigation
+                VarientPrice = v.VarientPrice,
+                VarientAttributes = (v.VarientAttributes ?? new()).Select(va => new ProductAttribute
+                {
+                    Key = va.Key,
+                    Value = va.Value
+                }).ToList()
+            }).ToList();
+
             var product = new Product
             {
                 Name = request.Name,
                 Description = request.Description,
                 CategoryId = request.CategoryId,
+                BasePrice = request.BasePrice,
+                DiscountAmount = request.DiscountAmount,
+                DiscountTyp = request.DiscountTyp,
+                Attributes = attributes,
+                Images = images,
+                Variants = variants
+                
             };
 
             await _productRepository.AddAsync(product, cancellationToken);
