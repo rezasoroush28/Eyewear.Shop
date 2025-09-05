@@ -6,6 +6,8 @@ using System.Text;
 using Eyewear.Shop.Application.Interfaces.Persistance.Repository;
 using Eyewear.Shop.Persistence.Contexts;
 using Eyewear.Shop.Application.Interfaces;
+using Eyewear.Shop.Infrastructure.Services.Search;
+using Nest;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -49,6 +51,16 @@ if (app.Environment.EnvironmentName == "Docker")
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     db.Database.Migrate();
 }
+
+builder.Services.AddSingleton<IElasticClient>(sp =>
+{
+    var settings = new ConnectionSettings(new Uri("http://localhost:9200"))
+        .DefaultIndex("products")
+        .EnableDebugMode();
+    return new ElasticClient(settings);
+});
+
+builder.Services.AddScoped<ISearchservice, SearchService>();
 
 if (app.Environment.IsDevelopment())
 {
