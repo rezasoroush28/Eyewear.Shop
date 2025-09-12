@@ -9,7 +9,8 @@ public class Product
     public Category Category { get; set; } = null!;
     public bool IsDeleted { get; set; } = false;
     public ICollection<ProductVariant> Variants { get; set; } = new List<ProductVariant>();
-    public ICollection<ProductImage> Images { get; set; } = new List<ProductImage>();
+    public ICollection<string> MainImagesUrls { get; set; } = new List<string>();
+    public string ThumbnailImageUrl { get; set; } = string.Empty;
     public List<ProductAttribute> Attributes { get; set; } = new List<ProductAttribute>();
     public float? DiscountAmount { get; set; }
     public DiscountType? DiscountTyp { get; set; }

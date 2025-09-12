@@ -1,6 +1,7 @@
 ﻿using Eyewear.Shop.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System.Text.Json;
 
 namespace Eyewear.Shop.Persistence.Configurations;
 
@@ -25,9 +26,15 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
                .WithOne(v => v.Product)
                .HasForeignKey(v => v.ProductId);
 
-        builder.HasMany(p => p.Images)
-               .WithOne(i => i.Product)
-               .HasForeignKey(i => i.ProductId);
+        builder.Property(p => p.ThumbnailImageUrl)
+            .HasMaxLength(500);
+
+        // Store List<string> as JSON in DB
+        builder.Property(p => p.MainImagesUrls)
+            .HasConversion(
+                v => JsonSerializer.Serialize(v, (JsonSerializerOptions?)null),
+                v => JsonSerializer.Deserialize<List<string>>(v, (JsonSerializerOptions?)null) ?? new List<string>())
+            .HasColumnType("nvarchar(max)");
 
         builder.Property(p => p.BasePrice)
                .HasColumnType("decimal(18,2)");

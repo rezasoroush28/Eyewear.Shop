@@ -185,7 +185,6 @@ namespace Eyewear.Shop.Infrastructure.Services.Search
 
             return Result.Success();
         }
-
         public async Task<Result> CreateOrUpdateProductDocInIndex(ProductSearchDto productSearchDto, CancellationToken cancellationToken)
         {
             var response = await _elasticClient.IndexAsync(ProductIndex, c => c
@@ -199,7 +198,6 @@ namespace Eyewear.Shop.Infrastructure.Services.Search
 
             return Result.Success();
         }
-
         public async Task<Result> DeleteProductDocFromIndex(int productId, CancellationToken cancellationToken)
         {
             var response = await _elasticClient.DeleteAsync<ProductSearchDto>(productId, d => d
