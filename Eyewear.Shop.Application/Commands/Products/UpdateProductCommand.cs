@@ -16,7 +16,8 @@ namespace Eyewear.Shop.Application.Commands.Products
         public DiscountType? DiscountTyp { get; set; }
         public decimal BasePrice { get; set; }
         public List<ProductAttributeDto> AttributeList { get; set; } = new List<ProductAttributeDto>();
-        public List<ProductImageDto> ImageList { get; set; } = new List<ProductImageDto>();
+        public List<string> MainImagesUrls { get; set; } = new List<string>();
+        public string ThumbnailImageUrl { get; set; } = string.Empty;
         public List<ProductVariantDto> VarientList { get; set; } = new List<ProductVariantDto>();
     }
 }
@@ -49,11 +50,6 @@ public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand,
             Value = a.Value
         }).ToList();
 
-        var images = (request.ImageList ?? new()).Select(i => new ProductImage
-        {
-            ImageUrl = i.ImageUrl
-        }).ToList();
-
         var variants = (request.VarientList ?? new()).Select(v => new ProductVariant
         {
             // No ProductId here; EF will set it via navigation
@@ -72,7 +68,8 @@ public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand,
         product.DiscountAmount = request.DiscountAmount;
         product.DiscountTyp = request.DiscountTyp;
         product.Attributes = attributes;
-        product.Images = images;
+        product.ThumbnailImageUrl = request.ThumbnailImageUrl;
+        product.ThumbnailImageUrl = request.ThumbnailImageUrl;
         product.Variants = variants;
 
         

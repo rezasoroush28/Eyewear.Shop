@@ -11,6 +11,10 @@ namespace Eyewear.Shop.Application.Dtos.Products
         public float? DiscountAmount { get; set; }
         public DiscountType? DiscountTyp { get; set; }
         public decimal BasePrice { get; set; }
+        public List<ProductAttributeDto> AttributeList { get; set; } = new List<ProductAttributeDto>();
+        public List<string> MainImagesUrls { get; set; } = new List<string>();
+        public string ThumbnailImageUrl { get; set; } = string.Empty;
+        public List<ProductVariantDto> VarientList { get; set; } = new List<ProductVariantDto>();
     }
 }
 

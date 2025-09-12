@@ -29,9 +29,10 @@ namespace Eyewear.Shop.API.Controllers
                 BasePrice = dto.BasePrice,
                 DiscountAmount = dto.DiscountAmount,
                 DiscountTyp = dto.DiscountTyp,
-                ImageList = dto.ImageList,
                 VarientList = dto.VarientList,
                 AttributeList = dto.AttributeList,
+                ThumbnailImageUrl = dto.ThumbnailImageUrl,
+                MainImagesUrls = dto.MainImagesUrls
             });
 
             if(res.IsSuccess) return Ok();
@@ -47,9 +48,13 @@ namespace Eyewear.Shop.API.Controllers
                 Name = dto.Name,
                 Description = dto.Description,
                 CategoryId = dto.CategoryId,
-                BasePrice= dto.BasePrice,
+                BasePrice = dto.BasePrice,
                 DiscountAmount = dto.DiscountAmount,
                 DiscountTyp = dto.DiscountTyp,
+                VarientList = dto.VarientList,
+                AttributeList = dto.AttributeList,
+                ThumbnailImageUrl = dto.ThumbnailImageUrl,
+                MainImagesUrls = dto.MainImagesUrls
             });
 
             return NoContent();
