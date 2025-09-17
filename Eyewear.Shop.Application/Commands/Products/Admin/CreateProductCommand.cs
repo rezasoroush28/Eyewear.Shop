@@ -75,7 +75,7 @@ namespace Eyewear.Shop.Application.Commands.Products.Admin
 
             };
 
-            await _productRepository.AddAsync(product, cancellationToken);
+            await _productRepository.AdminAddAsync(product, cancellationToken);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 
             return Result<CreateProductResponse>.Success(new CreateProductResponse());

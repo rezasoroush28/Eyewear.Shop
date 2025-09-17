@@ -85,13 +85,11 @@ namespace Eyewear.Shop.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] int pageNumber = 1,
+                                                [FromQuery] int pageSize = 10,
+                                                CancellationToken cancellationToken = default)
         {
-            var res = await _mediator.Send(new GetProductCommand
-            {
-                ProductId = dto.ProductId,
-            });
-
+            var res = await _mediator.Send(new GetAllProductsCommand { PageNumber = pageNumber,PageSize = pageSize});
             if (res.IsSuccess) return Ok(res);
             else return BadRequest();
         }

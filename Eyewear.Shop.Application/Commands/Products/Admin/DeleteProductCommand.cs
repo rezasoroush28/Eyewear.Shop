@@ -22,14 +22,14 @@ namespace Eyewear.Shop.Application.Commands.Products.Admin
         }
         public async Task<Result<DeleteProductResponse>> Handle(DeleteProductCommand request, CancellationToken cancellationToken)
         {
-            var product = await _productRepository.GetByIdAsyncTracking(request.ProductId, cancellationToken);
+            var product = await _productRepository.AdminGetByIdAsyncTracking(request.ProductId, cancellationToken);
 
             if (product == null)
             {
                 throw new KeyNotFoundException($"Product with ID {request.ProductId} not found.");
             }
 
-            await _productRepository.DeleteAsync(request.ProductId);
+            await _productRepository.AdminDeleteAsync(request.ProductId);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 
             return Result<DeleteProductResponse>.Success(new DeleteProductResponse());
