@@ -27,11 +27,6 @@ namespace Eyewear.Shop.Application.Dtos.Products
         public string Value { get; set; } = null!;
     }
 
-    public class ProductImageDto
-    {
-        public int Id { get; set; }
-        public string ImageUrl { get; set; } = null!;
-    }
     public class ProductVariantDto
     {
         public int Id { get; set; }
@@ -39,7 +34,5 @@ namespace Eyewear.Shop.Application.Dtos.Products
         public Product Product { get; set; } = null!;
         public decimal VarientPrice { get; set; }
         public List<ProductAttributeDto> VarientAttributes { get; set; } = new();
-
-
     }
 }
