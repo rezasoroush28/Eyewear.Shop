@@ -25,6 +25,8 @@ namespace Eyewear.Shop.Application.Commands.Products.Admin
 public record UpdateProductResponse { }
 
 
+#region Handler
+
 public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand, Result<UpdateProductResponse>>
 {
     private readonly IUnitOfWork _unitOfWork;
@@ -79,6 +81,7 @@ public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand,
 
         return Result<UpdateProductResponse>.Success(new UpdateProductResponse());
     }
-}
+} 
+#endregion
 
 

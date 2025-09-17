@@ -30,6 +30,8 @@ namespace Eyewear.Shop.Application.Commands.Products.Admin
 
     }
 
+    #region Handler
+
     public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, Result<CreateProductResponse>>
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -81,6 +83,7 @@ namespace Eyewear.Shop.Application.Commands.Products.Admin
             return Result<CreateProductResponse>.Success(new CreateProductResponse());
 
         }
-    }
+    } 
+    #endregion
 
 }

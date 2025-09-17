@@ -20,6 +20,8 @@ namespace Eyewear.Shop.Application.Commands.Products.Admin
             _unitOfWork = unitOfWork;
             _productRepository = productRepository;
         }
+
+        #region Handler
         public async Task<Result<DeleteProductResponse>> Handle(DeleteProductCommand request, CancellationToken cancellationToken)
         {
             var product = await _productRepository.AdminGetByIdAsyncTracking(request.ProductId, cancellationToken);
@@ -34,7 +36,10 @@ namespace Eyewear.Shop.Application.Commands.Products.Admin
 
             return Result<DeleteProductResponse>.Success(new DeleteProductResponse());
         }
+
+        #endregion   
     }
-
-
 }
+
+
+    
