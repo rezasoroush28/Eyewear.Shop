@@ -1,10 +1,10 @@
-﻿using Eyewear.Shop.Application.Commands.Products;
+﻿using Eyewear.Shop.Application.Commands.Products.Admin;
 using Eyewear.Shop.Application.Dtos.Products;
 using Eyewear.Shop.Application.Interfaces.Persistance.Repository;
 using Eyewear.Shop.Domain.Entities;
 using MediatR;
 
-namespace Eyewear.Shop.Application.Commands.Products
+namespace Eyewear.Shop.Application.Commands.Products.Admin
 {
     public record UpdateProductCommand : IRequest<Result<UpdateProductResponse>>
     {
@@ -38,7 +38,7 @@ public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand,
 
     public async Task<Result<UpdateProductResponse>> Handle(UpdateProductCommand request, CancellationToken cancellationToken)
     {
-        var product = await _productRepository.GetByIdAsync(request.ProductId, cancellationToken);
+        var product = await _productRepository.GetByIdAsyncTracking(request.ProductId, cancellationToken);
         if (product == null)
         {
             throw new KeyNotFoundException($"Product with ID {request.ProductId} not found.");
@@ -72,7 +72,7 @@ public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand,
         product.ThumbnailImageUrl = request.ThumbnailImageUrl;
         product.Variants = variants;
 
-        
+
 
         _productRepository.Update(product);
         await _unitOfWork.SaveChangesAsync(cancellationToken);

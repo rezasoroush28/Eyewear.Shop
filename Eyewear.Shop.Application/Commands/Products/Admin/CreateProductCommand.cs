@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Eyewear.Shop.Application.Commands.Products
+namespace Eyewear.Shop.Application.Commands.Products.Admin
 {
     public class CreateProductCommand : IRequest<Result<CreateProductResponse>>
     {
@@ -25,9 +25,9 @@ namespace Eyewear.Shop.Application.Commands.Products
 
     }
 
-    public class CreateProductResponse 
+    public class CreateProductResponse
     {
-        
+
     }
 
     public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, Result<CreateProductResponse>>
@@ -72,7 +72,7 @@ namespace Eyewear.Shop.Application.Commands.Products
                 MainImagesUrls = request.MainImagesUrls,
                 ThumbnailImageUrl = request.ThumbnailImageUrl,
                 Variants = variants
-                
+
             };
 
             await _productRepository.AddAsync(product, cancellationToken);

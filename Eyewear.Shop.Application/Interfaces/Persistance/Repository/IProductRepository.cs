@@ -11,7 +11,8 @@ namespace Eyewear.Shop.Application.Interfaces.Persistance.Repository
     {
         Task AddAsync(Product product, CancellationToken cancellationToken);
         Task Update(Product product);
-        Task<Product> GetByIdAsync(int id, CancellationToken cancellationToken);
+        Task<Product> GetByIdAsyncNoTracking(int id, CancellationToken cancellationToken)
+        Task<Product> GetByIdAsyncTracking(int id, CancellationToken cancellationToken);
         Task<List<Product>> GetAllAsync();
         Task DeleteAsync(int id);
     }

@@ -3,14 +3,14 @@ using Eyewear.Shop.Application.Interfaces.Persistance.Repository;
 using Eyewear.Shop.Domain.Entities;
 using MediatR;
 
-namespace Eyewear.Shop.Application.Commands.Products
+namespace Eyewear.Shop.Application.Commands.Products.Admin
 {
     public record GetProductCommand : IRequest<Result<GetProductResponse>>
     {
         public int ProductId { get; set; }
     }
 
-    public record GetProductResponse 
+    public record GetProductResponse
     {
         public GetProductDto ProductDto { get; set; }
     }
@@ -42,11 +42,12 @@ namespace Eyewear.Shop.Application.Commands.Products
         List<GetProductAttributeDto> Attributes
     );
 
-    public record GetProductCategoryDto(int Id, string Name); 
+    public record GetProductCategoryDto(int Id, string Name);
 
     #endregion
 
 
+    #region Handler
     public class GetProductCommandHandler : IRequestHandler<GetProductCommand, Result<GetProductResponse>>
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -59,7 +60,7 @@ namespace Eyewear.Shop.Application.Commands.Products
         }
         public async Task<Result<GetProductResponse>> Handle(GetProductCommand request, CancellationToken cancellationToken)
         {
-            var product = await _productRepository.GetByIdAsync(request.ProductId, cancellationToken);
+            var product = await _productRepository.GetByIdAsyncNoTracking(request.ProductId, cancellationToken);
             if (product == null)
             {
                 throw new KeyNotFoundException($"Product with ID {request.ProductId} not found.");
@@ -92,7 +93,7 @@ namespace Eyewear.Shop.Application.Commands.Products
                 a.Value
             )).ToList()
         );
-            
+
             var response = new GetProductResponse
             {
                 ProductDto = responseDto
@@ -100,7 +101,8 @@ namespace Eyewear.Shop.Application.Commands.Products
 
             return Result<GetProductResponse>.Success(response);
         }
-    }
+    } 
+    #endregion
 
 
 }

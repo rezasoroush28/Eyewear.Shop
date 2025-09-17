@@ -1,4 +1,5 @@
 ﻿using Eyewear.Shop.Application.Commands.Products;
+using Eyewear.Shop.Application.Commands.Products.Admin;
 using Eyewear.Shop.Application.Dtos.Products;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -35,7 +36,7 @@ namespace Eyewear.Shop.API.Controllers
                 MainImagesUrls = dto.MainImagesUrls
             });
 
-            if(res.IsSuccess) return Ok();
+            if (res.IsSuccess) return Ok();
             else return BadRequest();
         }
 
@@ -70,6 +71,31 @@ namespace Eyewear.Shop.API.Controllers
 
             return NoContent();
         }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get([FromBody] GetProductDetailsDto dto)
+        {
+            var res = await _mediator.Send(new GetProductCommand
+            {
+                ProductId = dto.ProductId,
+            });
+
+            if (res.IsSuccess) return Ok(res);
+            else return BadRequest();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var res = await _mediator.Send(new GetProductCommand
+            {
+                ProductId = dto.ProductId,
+            });
+
+            if (res.IsSuccess) return Ok(res);
+            else return BadRequest();
+        }
+
 
         //[HttpPost("{productId}/variants")]
         //public async Task<IActionResult> AddVariant(int productId, [FromBody] CreateProductVariantDto dto)

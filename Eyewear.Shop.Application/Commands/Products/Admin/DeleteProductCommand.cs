@@ -1,7 +1,7 @@
 ﻿using Eyewear.Shop.Application.Interfaces.Persistance.Repository;
 using MediatR;
 
-namespace Eyewear.Shop.Application.Commands.Products
+namespace Eyewear.Shop.Application.Commands.Products.Admin
 {
     public record DeleteProductCommand : IRequest<Result<DeleteProductResponse>>
     {
@@ -22,7 +22,7 @@ namespace Eyewear.Shop.Application.Commands.Products
         }
         public async Task<Result<DeleteProductResponse>> Handle(DeleteProductCommand request, CancellationToken cancellationToken)
         {
-            var product = await _productRepository.GetByIdAsync(request.ProductId, cancellationToken);
+            var product = await _productRepository.GetByIdAsyncTracking(request.ProductId, cancellationToken);
 
             if (product == null)
             {
