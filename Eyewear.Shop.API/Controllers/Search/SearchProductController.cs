@@ -20,21 +20,21 @@ namespace Eyewear.Shop.API.Controllers
             _mediator = mediator;
         }
 
-        public async Task<IActionResult> Search([FromBody] SearchProductRequestModel searchProductRequestModel)
-        {
-            var res = await _mediator.Send(new SearchProductCommand
-            {
-                CategoryId = searchProductRequestModel.CategoryId,
-                StringQuery = searchProductRequestModel.StringQuery,
-                MaxPrice = searchProductRequestModel.MaxPrice,
-                MinPrice = searchProductRequestModel.MinPrice,
-                SortBy = searchProductRequestModel.SortBy,
-                Page = searchProductRequestModel.Page,
-                PageSize = searchProductRequestModel.PageSize
-            });
+        //public async Task<IActionResult> Search([FromBody] SearchProductRequestModel searchProductRequestModel)
+        //{
+        //    var res = await _mediator.Send(new SearchProductCommand
+        //    {
+        //        CategoryId = searchProductRequestModel.CategoryId,
+        //        StringQuery = searchProductRequestModel.StringQuery,
+        //        MaxPrice = searchProductRequestModel.MaxPrice,
+        //        MinPrice = searchProductRequestModel.MinPrice,
+        //        SortBy = searchProductRequestModel.SortBy,
+        //        Page = searchProductRequestModel.Page,
+        //        PageSize = searchProductRequestModel.PageSize
+        //    });
 
-            if()
-        }
+        //    //if()
+        //}
 
 
     }

@@ -6,6 +6,7 @@ using System.Text;
 using Eyewear.Shop.Application.Interfaces.Persistance.Repository;
 using Eyewear.Shop.Persistence.Contexts;
 using Eyewear.Shop.Infrastructure.Services.Search;
+using Eyewear.Shop.Application.Interfaces.Services;
 using Nest;
 
 var builder = WebApplication.CreateBuilder(args);

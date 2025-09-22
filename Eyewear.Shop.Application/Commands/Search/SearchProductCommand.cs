@@ -34,12 +34,12 @@ public struct ProductSearchReult(string ProductyName, string ThumbnailUrl, doubl
 
 #region Handler
 
-public class SearchProductCommandHandler : IRequestHandler<SearchProductCommand, Result<SearchProductResponse>>
-{
-    public async Task<Result<SearchProductResponse>> Handle(SearchProductCommand request, CancellationToken cancellationToken)
-    {
+//public class SearchProductCommandHandler : IRequestHandler<SearchProductCommand, Result<SearchProductResponse>>
+//{
+//    public async Task<Result<SearchProductResponse>> Handle(SearchProductCommand request, CancellationToken cancellationToken)
+//    {
 
-    }
-}
+//    }
+//}
 
 #endregion

@@ -6,8 +6,5 @@ using System.Threading.Tasks;
 
 namespace Eyewear.Shop.Application.Interfaces.Services
 {
-    public interface ISmsService
-    {
-        Task<Result> SendAsync(string phoneNumber, string message);
-    }
+    public interface IApplicationMarker { }
 }
