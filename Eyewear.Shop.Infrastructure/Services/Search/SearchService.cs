@@ -1,4 +1,4 @@
-﻿using Eyewear.Shop.Application.Interfaces;
+﻿using Eyewear.Shop.Application.Interfaces.Services;
 using Eyewear.Shop.Application.Models.Search;
 using Nest;
 using System;
@@ -160,13 +160,12 @@ namespace Eyewear.Shop.Infrastructure.Services.Search
              .Map<ProductSearchDto>(m => m
                  .AutoMap()
                  .Properties(ps => ps
+                     .Text(t => t.Name(p => p.Id.ToString()))
                      .Text(t => t.Name(p => p.Name).Boost(2))
                      .Text(t => t.Name(p => p.Category))
                      .Text(t => t.Name(p => p.ParentCategory))
                      .Text(t => t.Name(p => p.Description))
-                     .Object<Dictionary<string, string>>(a => a
-                         .Name(p => p.Attributes)
-                     )
+                     .Text (t => t.Name(p => p.Attributes))
                  )
              ),
              ct: cancellationToken);

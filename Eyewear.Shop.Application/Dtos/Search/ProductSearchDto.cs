@@ -5,5 +5,5 @@
     public string? Description { get; set; }
     public string? Category { get; set; }
     public string? ParentCategory { get; set; }
-    public Dictionary<string, string> Attributes { get; set; } = new();
+    public List<string> Attributes { get; set; } = new();
 }

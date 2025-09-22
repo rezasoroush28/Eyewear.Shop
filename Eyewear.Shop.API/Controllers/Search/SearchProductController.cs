@@ -1,5 +1,6 @@
 ﻿using Eyewear.Shop.API.Models.Search;
 using Eyewear.Shop.Application.Commands.Products;
+using Eyewear.Shop.Application.Commands.Search;
 using Eyewear.Shop.Application.Dtos.Products;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -21,7 +22,18 @@ namespace Eyewear.Shop.API.Controllers
 
         public async Task<IActionResult> Search([FromBody] SearchProductRequestModel searchProductRequestModel)
         {
+            var res = await _mediator.Send(new SearchProductCommand
+            {
+                CategoryId = searchProductRequestModel.CategoryId,
+                StringQuery = searchProductRequestModel.StringQuery,
+                MaxPrice = searchProductRequestModel.MaxPrice,
+                MinPrice = searchProductRequestModel.MinPrice,
+                SortBy = searchProductRequestModel.SortBy,
+                Page = searchProductRequestModel.Page,
+                PageSize = searchProductRequestModel.PageSize
+            });
 
+            if()
         }
 
 

@@ -23,7 +23,7 @@ public partial class AppDbContext : IProductRepository
         product.IsDeleted = true;
 
     }
-    public async Task<List<Product>> AdminGetAllAsyncWithPagination(int pageNumber, int pageSize, CancellationToken cancellationToken)
+    public async Task<List<Product>> AdminGetAllWithPaginationAsync(int pageNumber, int pageSize, CancellationToken cancellationToken)
     {
         return await Products.AsNoTracking()
             .OrderByDescending(p => p.Id)
@@ -32,12 +32,12 @@ public partial class AppDbContext : IProductRepository
             .ToListAsync(cancellationToken);
     }
 
-    public async Task<Product> AdminGetByIdAsyncTracking(int id, CancellationToken cancellationToken)
+    public async Task<Product> AdminGetByIdTrackingAsync(int id, CancellationToken cancellationToken)
     {
         return await Products.Where(p => p.Id == id && !p.IsDeleted).FirstOrDefaultAsync();
     }
 
-    public async Task<Product> AdminGetByIdAsyncNoTracking(int id, CancellationToken cancellationToken)
+    public async Task<Product> AdminGetByIdNoTrackingAsync(int id, CancellationToken cancellationToken)
     {
         return await Products.AsNoTracking().Where(p => p.Id == id && !p.IsDeleted).FirstOrDefaultAsync();
     }
@@ -50,6 +50,26 @@ public partial class AppDbContext : IProductRepository
     public async Task<int> AdminGetTotalProductsCount(CancellationToken cancellationToken)
     {
         return await Products.CountAsync(cancellationToken);
+    }
+
+    public async Task<List<Product>> GetAllProductsAsync(
+    bool includeCategory = false,
+    bool includeVariants = false,
+    bool includeAttributes = false,
+    CancellationToken cancellationToken = default)
+    {
+        IQueryable<Product> query = Products.AsNoTracking().AsSplitQuery();
+
+        if (includeCategory)
+            query = query.Include(p => p.Category);
+
+        if (includeVariants)
+            query = query.Include(p => p.Variants);
+
+        if (includeAttributes)
+            query = query.Include(p => p.Attributes);
+
+        return await query.ToListAsync(cancellationToken);
     }
 }
 

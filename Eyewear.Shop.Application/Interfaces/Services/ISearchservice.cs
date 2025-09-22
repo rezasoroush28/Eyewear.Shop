@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Eyewear.Shop.Application.Interfaces
+namespace Eyewear.Shop.Application.Interfaces.Services
 {
     public interface ISearchservice
     {
@@ -14,7 +14,7 @@ namespace Eyewear.Shop.Application.Interfaces
         Task<List<string>> GetTopPopularSearchesAsync(CancellationToken cancellationToken, int count = 30);
         Task<Result> IndexAllProduct(List<ProductSearchDto> products, CancellationToken cancellationToken);
         Task<Result> CreateOrUpdateProductDocInIndex(ProductSearchDto productSearchDto, CancellationToken cancellationToken);
-        Task<Result> DeleteProductDocFromIndex(int ProductId , CancellationToken cancellationToken);
+        Task<Result> DeleteProductDocFromIndex(int ProductId, CancellationToken cancellationToken);
     }
 
 

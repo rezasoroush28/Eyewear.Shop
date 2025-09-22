@@ -9,12 +9,20 @@ namespace Eyewear.Shop.Application.Interfaces.Persistance.Repository
 {
     public interface IProductRepository
     {
+        #region Admin
         Task<int> AdminGetTotalProductsCount(CancellationToken cancellationToken);
         Task AdminAddAsync(Product product, CancellationToken cancellationToken);
         Task AdminUpdate(Product product);
-        Task<Product> AdminGetByIdAsyncNoTracking(int id, CancellationToken cancellationToken);
-        Task<Product> AdminGetByIdAsyncTracking(int id, CancellationToken cancellationToken);
-        Task<List<Product>> AdminGetAllAsyncWithPagination(int pageNumber,int pageSize,CancellationToken cancellationToken);
+        Task<Product> AdminGetByIdNoTrackingAsync(int id, CancellationToken cancellationToken);
+        Task<Product> AdminGetByIdTrackingAsync(int id, CancellationToken cancellationToken);
+        Task<List<Product>> AdminGetAllWithPaginationAsync(int pageNumber, int pageSize, CancellationToken cancellationToken);
         Task AdminDeleteAsync(int id);
+        #endregion
+
+        Task<List<Product>> GetAllProductsAsync(
+                            bool includeCategory = false,
+                            bool includeVariants = false,
+                            bool includeAttributes = false,
+                            CancellationToken cancellationToken = default);
     }
 }

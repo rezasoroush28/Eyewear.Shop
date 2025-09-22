@@ -40,7 +40,7 @@ public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand,
 
     public async Task<Result<UpdateProductResponse>> Handle(UpdateProductCommand request, CancellationToken cancellationToken)
     {
-        var product = await _productRepository.AdminGetByIdAsyncTracking(request.ProductId, cancellationToken);
+        var product = await _productRepository.AdminGetByIdTrackingAsync(request.ProductId, cancellationToken);
         if (product == null)
         {
             throw new KeyNotFoundException($"Product with ID {request.ProductId} not found.");

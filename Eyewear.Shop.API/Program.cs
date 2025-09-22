@@ -5,7 +5,6 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Eyewear.Shop.Application.Interfaces.Persistance.Repository;
 using Eyewear.Shop.Persistence.Contexts;
-using Eyewear.Shop.Application.Interfaces;
 using Eyewear.Shop.Infrastructure.Services.Search;
 using Nest;
 

@@ -35,7 +35,7 @@ namespace Eyewear.Shop.Application.Commands.Products.Admin
         }
         public async Task<Result<GetAllProductsResponse>> Handle(GetAllProductsCommand request, CancellationToken cancellationToken)
         {
-            var query = await _productRepository.AdminGetAllAsyncWithPagination(request.PageNumber, request.PageSize
+            var query = await _productRepository.AdminGetAllWithPaginationAsync(request.PageNumber, request.PageSize
                 , cancellationToken);
             var resultDtos = query.Select(p => new GetAllProductDto(
                 p.Id,

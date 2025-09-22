@@ -24,7 +24,7 @@ namespace Eyewear.Shop.Application.Commands.Products.Admin
         #region Handler
         public async Task<Result<DeleteProductResponse>> Handle(DeleteProductCommand request, CancellationToken cancellationToken)
         {
-            var product = await _productRepository.AdminGetByIdAsyncTracking(request.ProductId, cancellationToken);
+            var product = await _productRepository.AdminGetByIdTrackingAsync(request.ProductId, cancellationToken);
 
             if (product == null)
             {

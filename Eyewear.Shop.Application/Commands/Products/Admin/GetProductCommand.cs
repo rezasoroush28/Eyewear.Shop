@@ -60,7 +60,7 @@ namespace Eyewear.Shop.Application.Commands.Products.Admin
         }
         public async Task<Result<GetProductResponse>> Handle(GetProductCommand request, CancellationToken cancellationToken)
         {
-            var product = await _productRepository.AdminGetByIdAsyncNoTracking(request.ProductId, cancellationToken);
+            var product = await _productRepository.AdminGetByIdNoTrackingAsync(request.ProductId, cancellationToken);
             if (product == null)
             {
                 throw new KeyNotFoundException($"Product with ID {request.ProductId} not found.");
