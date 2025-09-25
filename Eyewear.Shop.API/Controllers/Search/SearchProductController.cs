@@ -10,7 +10,6 @@ namespace Eyewear.Shop.API.Controllers
 {
     [ApiController]
     [Route("api/SearchProducts")]
-    [Authorize(Roles = "Admin")]
     public class SearchProductController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -20,23 +19,64 @@ namespace Eyewear.Shop.API.Controllers
             _mediator = mediator;
         }
 
-        //public async Task<IActionResult> Search([FromBody] SearchProductRequestModel searchProductRequestModel)
-        //{
-        //    var res = await _mediator.Send(new SearchProductCommand
-        //    {
-        //        CategoryId = searchProductRequestModel.CategoryId,
-        //        StringQuery = searchProductRequestModel.StringQuery,
-        //        MaxPrice = searchProductRequestModel.MaxPrice,
-        //        MinPrice = searchProductRequestModel.MinPrice,
-        //        SortBy = searchProductRequestModel.SortBy,
-        //        Page = searchProductRequestModel.Page,
-        //        PageSize = searchProductRequestModel.PageSize
-        //    });
+        public async Task<IActionResult> Search([FromBody] SearchProductRequestModel searchProductRequestModel)
+        {
+            var command = new SearchProductCommand
+            {
+                StringQuery = searchProductRequestModel.StringQuery,
+                //MaxPrice = searchProductRequestModel.MaxPrice,
+                //MinPrice = searchProductRequestModel.MinPrice,
+                SortBy = searchProductRequestModel.SortBy,
+                Page = searchProductRequestModel.Page,
+                PageSize = searchProductRequestModel.PageSize
+            };
 
-        //    //if()
-        //}
+            if (searchProductRequestModel.CategoryId != null)
+            {
+                command.CategoryString = searchProductRequestModel.CategoryString;
+            }
+
+            var res = await _mediator.Send(command);
+            if (!res.IsSuccess)
+            {
+                return BadRequest(res.ErrorMessage);
+            }
+
+            return Ok(res.Data);
+
+
+        }
+
+        public async Task<IActionResult> GetSearchResults([FromBody] SearchProductRequestModel searchProductRequestModel)
+        {
+            var command = new GetProductSearchResultsCommand
+            {
+                StringQuery = searchProductRequestModel.StringQuery,
+                //MaxPrice = searchProductRequestModel.MaxPrice,
+                //MinPrice = searchProductRequestModel.MinPrice,
+                SortBy = searchProductRequestModel.SortBy,
+                Page = searchProductRequestModel.Page,
+                PageSize = searchProductRequestModel.PageSize
+            };
+
+            if (searchProductRequestModel.CategoryId != null)
+            {
+                command.CategoryString = searchProductRequestModel.CategoryString;
+            }
+
+            var res = await _mediator.Send(command);
+            if (!res.IsSuccess)
+            {
+                return BadRequest(res.ErrorMessage);
+            }
+
+            return Ok(res.Data);
+
+
+        }
 
 
     }
+
 }
 

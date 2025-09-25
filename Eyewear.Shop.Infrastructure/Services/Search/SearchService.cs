@@ -60,7 +60,7 @@ namespace Eyewear.Shop.Infrastructure.Services.Search
                 .Query(q =>
                 {
                     // If category is provided in the request
-                    if (!string.IsNullOrWhiteSpace(searchDto.Category))
+                    if (!string.IsNullOrWhiteSpace(searchDto.CategoryString))
                     {
                         return q.Bool(b => b
                             .Must(
@@ -80,11 +80,11 @@ namespace Eyewear.Shop.Infrastructure.Services.Search
                                     .Should(
                                         s => s.Match(mq => mq
                                             .Field(p => p.Category)
-                                            .Query(searchDto.Category)
+                                            .Query(searchDto.CategoryString)
                                         ),
                                         s => s.Match(mq => mq
                                             .Field(p => p.ParentCategory)
-                                            .Query(searchDto.Category)
+                                            .Query(searchDto.CategoryString)
                                         )
                                     )
                                     .MinimumShouldMatch(1)

@@ -71,5 +71,24 @@ public partial class AppDbContext : IProductRepository
 
         return await query.ToListAsync(cancellationToken);
     }
+
+    public async Task<List<Product>> GetProductsByIds(List<int> ids, bool includeCategory = false, bool includeVariants = false, bool includeAttributes = false, CancellationToken cancellationToken = default)
+    {
+        IQueryable<Product> query = Products
+            .AsNoTracking()
+            .AsSplitQuery()
+            .Where(p => ids.Contains(p.Id));
+
+        if (includeCategory)
+            query = query.Include(p => p.Category);
+
+        if (includeVariants)
+            query = query.Include(p => p.Variants);
+
+        if (includeAttributes)
+            query = query.Include(p => p.Attributes);
+
+        return await query.ToListAsync(cancellationToken);
+    }
 }
 

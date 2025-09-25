@@ -24,5 +24,12 @@ namespace Eyewear.Shop.Application.Interfaces.Persistance.Repository
                             bool includeVariants = false,
                             bool includeAttributes = false,
                             CancellationToken cancellationToken = default);
+
+        Task<List<Product>> GetProductsByIds(
+                            List<int> ids,
+                            bool includeCategory = false,
+                            bool includeVariants = false,
+                            bool includeAttributes = false,
+                            CancellationToken cancellationToken = default);
     }
 }
