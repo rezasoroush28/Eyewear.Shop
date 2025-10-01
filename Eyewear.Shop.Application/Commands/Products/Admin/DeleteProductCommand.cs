@@ -1,4 +1,5 @@
-﻿using Eyewear.Shop.Application.Interfaces.Persistance.Repository;
+﻿using Eyewear.Shop.Application.Events;
+using Eyewear.Shop.Application.Interfaces.Persistance.Repository;
 using MediatR;
 
 namespace Eyewear.Shop.Application.Commands.Products.Admin
@@ -14,6 +15,7 @@ namespace Eyewear.Shop.Application.Commands.Products.Admin
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IProductRepository _productRepository;
+        private readonly IMediator _mediator;
 
         public DeleteProductCommandHandler(IUnitOfWork unitOfWork, IProductRepository productRepository)
         {
@@ -33,6 +35,7 @@ namespace Eyewear.Shop.Application.Commands.Products.Admin
 
             await _productRepository.AdminDeleteAsync(request.ProductId);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
+            await _mediator.Publish(new ProductDeletedEvent(product));
 
             return Result<DeleteProductResponse>.Success(new DeleteProductResponse());
         }

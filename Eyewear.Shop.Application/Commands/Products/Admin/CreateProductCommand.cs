@@ -1,4 +1,5 @@
 ﻿using Eyewear.Shop.Application.Dtos.Products;
+using Eyewear.Shop.Application.Events;
 using Eyewear.Shop.Application.Interfaces.Persistance.Repository;
 using Eyewear.Shop.Domain.Entities;
 using MediatR;
@@ -36,6 +37,7 @@ namespace Eyewear.Shop.Application.Commands.Products.Admin
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IProductRepository _productRepository;
+        private readonly IMediator _mediator;
 
         public CreateProductCommandHandler(IUnitOfWork unitOfWork, IProductRepository productRepository)
         {
@@ -79,6 +81,7 @@ namespace Eyewear.Shop.Application.Commands.Products.Admin
 
             await _productRepository.AdminAddAsync(product, cancellationToken);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
+            await _mediator.Publish(new ProductCreatedEvent(product));
 
             return Result<CreateProductResponse>.Success(new CreateProductResponse());
 

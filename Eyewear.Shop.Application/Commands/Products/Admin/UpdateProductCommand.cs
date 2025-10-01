@@ -1,5 +1,6 @@
 ﻿using Eyewear.Shop.Application.Commands.Products.Admin;
 using Eyewear.Shop.Application.Dtos.Products;
+using Eyewear.Shop.Application.Events;
 using Eyewear.Shop.Application.Interfaces.Persistance.Repository;
 using Eyewear.Shop.Domain.Entities;
 using MediatR;
@@ -31,7 +32,7 @@ public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand,
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IProductRepository _productRepository;
-
+    private readonly IMediator _mediator;
     public UpdateProductCommandHandler(IUnitOfWork unitOfWork, IProductRepository productRepository)
     {
         _unitOfWork = unitOfWork;
@@ -78,6 +79,7 @@ public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand,
 
         _productRepository.AdminUpdate(product);
         await _unitOfWork.SaveChangesAsync(cancellationToken);
+        await _mediator.Publish(new ProductUpdatedEvent(product));
 
         return Result<UpdateProductResponse>.Success(new UpdateProductResponse());
     }
